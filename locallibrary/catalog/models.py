@@ -1,6 +1,7 @@
 from django.urls import reverse # Used in get_absolute_url() to get URL for specified ID
 from django.conf import settings
 from datetime import date
+from django.contrib.auth.models import User
 
 from django.db import models # Django's base model class
 from django.db.models import UniqueConstraint # Constrains fields to unique values
@@ -96,7 +97,7 @@ class BookInstance(models.Model):
     book = models.ForeignKey('Book', on_delete=models.RESTRICT, null=True)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
-    borrower = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
 
     LOAN_STATUS = (
