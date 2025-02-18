@@ -5,3 +5,4 @@ locallibrary/catalog/tests/__pycache__
 locallibrary/.vscode
 locallibrary/locallibrary/__pycache__
 locallibrary/catalog/migrations/__pycache__
+locallibrary/.env
