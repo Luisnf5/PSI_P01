@@ -1,3 +1,6 @@
 p1_venv/
 p1_env/
 locallibrary/catalog/__pycache__
+locallibrary/catalog/tests/__pycache__
+locallibrary/.vscode
+locallibrary/locallibrary/__pycache__
