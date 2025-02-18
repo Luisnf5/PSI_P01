@@ -85,23 +85,19 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(default=os.environ["DATABASE_URL"], conn_max_age=500)
 }
 
 #db_from_env = dj_database_url.config(default='postgres://alumnodb:alumnodb@localhost:5432/psi', conn_max_age=500)
 POSTGRESQL_URL = os.environ.get('POSTGRESQL_URl') 
 NEON_URL = os.environ.get('NEON_URL')
 
-if 'TESTING' in os.environ:
-    db_from_env = dj_database_url.config(default=POSTGRESQL_URL, conn_max_age=500)
+if 'TESTING'  in os.environ:
+    os.environ["DATABASE_URL"] = POSTGRESQL_URL 
 else:
-    db_from_env = dj_database_url.config(default=NEON_URL, conn_max_age=500)
-
-DATABASES['default'].update(db_from_env)
+    os.environ["DATABASE_URL"] = NEON_URL
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
