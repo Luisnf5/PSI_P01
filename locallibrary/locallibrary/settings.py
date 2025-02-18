@@ -34,10 +34,9 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-1qk@o!5v(%k9yf
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = False
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = os.environ.get('DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -93,7 +92,15 @@ DATABASES = {
     }
 }
 
-db_from_env = dj_database_url.config(default='postgres://alumnodb:alumnodb@localhost:5432/psi', conn_max_age=500)
+#db_from_env = dj_database_url.config(default='postgres://alumnodb:alumnodb@localhost:5432/psi', conn_max_age=500)
+POSTGRESQL_URL = os.environ.get('POSTGRESQL_URl') 
+NEON_URL = os.environ.get('NEON_URL')
+
+if 'TESTING' in os.environ:
+    db_from_env = dj_database_url.config(default=POSTGRESQL_URL, conn_max_age=500)
+else:
+    db_from_env = dj_database_url.config(default=NEON_URL, conn_max_age=500)
+    
 DATABASES['default'].update(db_from_env)
 
 # Password validation
@@ -136,15 +143,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
-
-# Update database configuration from $DATABASE_URL environment variable (if defined)
-import dj_database_url
-
-if 'DATABASE_URL' in os.environ:
-    DATABASES['default'] = dj_database_url.config(
-        conn_max_age=500,
-        conn_health_checks=True,
-    )
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
