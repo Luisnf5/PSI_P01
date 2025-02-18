@@ -344,7 +344,23 @@ class AuthorCreateViewTest(TestCase):
         })
         self.assertRedirects(response, reverse('author-detail', kwargs={'pk': Author.objects.last().pk}))
 
-    def test_forbidden_if_logged_in_but_no_permission(self):
+    def test_forbidden_if_logged_in_but_not_correct_permission(self):
+        test_user = User.objects.get(username='test_user')
+
+        test_user.user_permissions.clear()
+        test_user.save()
+
+        login = self.client.login(username='test_user', password='some_password')
+        response = self.client.get(reverse('author-create'))
+        self.assertEqual(response.status_code, 403)
+    
+    def test_form_date_of_death_initially_set_to_expected_date(self):
+        login = self.client.login(username='test_user', password='some_password')
+        response = self.client.get(reverse('author-create'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['form'].initial['date_of_death'], '11/11/2023')
+
+    def test_forbidden_if_logged_in_but_not_correct_permission(self):
         test_user = User.objects.get(username='test_user')
 
         test_user.user_permissions.clear()
@@ -354,5 +370,12 @@ class AuthorCreateViewTest(TestCase):
         response = self.client.get(reverse('author-create'))
         self.assertEqual(response.status_code, 403)
 
-
-
+    def test_redirects_to_detail_view_on_success(self):
+        login = self.client.login(username='test_user', password='some_password')
+        response = self.client.post(reverse('author-create'), {
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'date_of_birth': '1970-01-01',
+            'date_of_death': '2023-11-11'
+        })
+        self.assertRedirects(response, reverse('author-detail', kwargs={'pk': Author.objects.last().pk}))
