@@ -317,11 +317,6 @@ class AuthorCreateViewTest(TestCase):
         response = self.client.get(reverse('author-create'))
         self.assertRedirects(response, '/accounts/login/?next=/catalog/author/create/')
 
-    def test_forbidden_if_logged_in_but_no_permission(self):
-        login = self.client.login(username='test_user', password='some_password')
-        response = self.client.get(reverse('author-create'))
-        self.assertEqual(response.status_code, 403)
-
     def test_logged_in_with_permission(self):
         login = self.client.login(username='test_user', password='some_password')
         response = self.client.get(reverse('author-create'))
@@ -348,6 +343,16 @@ class AuthorCreateViewTest(TestCase):
             'date_of_death': '2023-11-11'
         })
         self.assertRedirects(response, reverse('author-detail', kwargs={'pk': Author.objects.last().pk}))
+
+    def test_forbidden_if_logged_in_but_no_permission(self):
+        test_user = User.objects.get(username='test_user')
+
+        test_user.user_permissions.clear()
+        test_user.save()
+
+        login = self.client.login(username='test_user', password='some_password')
+        response = self.client.get(reverse('author-create'))
+        self.assertEqual(response.status_code, 403)
 
 
 
