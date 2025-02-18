@@ -1,5 +1,7 @@
 set -e
 
+python3 manage.py flush --noinput
+
 pip install -r requirements.txt
 
 python3 manage.py makemigrations
@@ -7,8 +9,6 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 
 python3 manage.py collectstatic --noinput 
-
-python3 manage.py flush --noinput
 
 python3 manage.py createsuperuser --noinput
 
