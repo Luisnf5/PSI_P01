@@ -74,18 +74,6 @@
   padding: 20px;
 }
 
-/* List with badges */
-.frontpage-list {
-  list-style: none;
-  padding: 0;
-}
-
-.frontpage-list li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
 .badge {
   display: inline-block;
   background-color: #ffc107;
