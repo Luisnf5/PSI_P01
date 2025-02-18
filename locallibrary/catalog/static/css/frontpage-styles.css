@@ -1,3 +1,4 @@
+
 /* General styles */
 body {
     font-family: Arial, sans-serif;
@@ -90,8 +91,8 @@ body {
     padding: 20px;
   }
   
-  /* List with badges */
-  .frontpage-list {
+/* List with badges */
+.frontpage-list {
     list-style: none;
     padding: 0;
   }
@@ -100,33 +101,3 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-  }
-  
-  .badge {
-    display: inline-block;
-    background-color: #ffc107;
-    color: black;
-    font-weight: bold;
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin-right: 10px;
-    min-width: 30px;
-    text-align: center;
-  }
-  
-  /* Centered authors section */
-  .footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #f8f9fa;
-    text-align: center;
-    padding: 10px 0;
-    border-top: 1px solid #e7e7e7;
-  }
-  
-  .authors {
-    font-style: italic;
-    font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
-  }
