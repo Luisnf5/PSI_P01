@@ -36,7 +36,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-1qk@o!5v(%k9yf
 #DEBUG = False
 DEBUG = os.environ.get('DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['psi-p01.onrender.com', '127.0.0.1']
 
 # Application definition
 
